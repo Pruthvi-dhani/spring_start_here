@@ -8,6 +8,7 @@ import chapter_4_ex_1.services.CommentService;
 public class Main {
 
     public static void main(String[] args) {
+        // manually create the instances and establish relations among them
         var commentRepository = new DBCommentRepository();
         var commentNotificationProxy = new EmailCommentNotificationProxy();
         var commentService = new CommentService(commentRepository, commentNotificationProxy);
