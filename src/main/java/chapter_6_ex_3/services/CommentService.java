@@ -9,11 +9,13 @@ public class CommentService {
 
     private Logger logger = Logger.getLogger(CommentService.class.getName());
 
+    @BeforeLog
     public String publishComment(Comment comment) {
         logger.info("Publishing Comment:\n" + comment);
         return "SUCCESS";
     }
 
+    @AfterLog
     public String editComment(Comment comment) {
         logger.info("Editing Comment:\n" + comment);
         return "SUCCESS";

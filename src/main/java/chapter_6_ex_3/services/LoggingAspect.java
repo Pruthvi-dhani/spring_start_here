@@ -1,8 +1,8 @@
 package chapter_6_ex_3.services;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -23,4 +23,21 @@ public class LoggingAspect {
         logger.info("Method has returned: " + returnObj);
         return returnObj;
     }
+
+    @Before("@annotation(BeforeLog)")
+    public void logBefore(JoinPoint joinPoint) {
+        String methodName = joinPoint.getSignature().getName();
+        Object[] methodArgs = joinPoint.getArgs();
+        logger.info("Before Method: " + methodName + " with args: " + Arrays.toString(methodArgs) +
+                " will execute...");
+    }
+
+    @AfterReturning(pointcut = "@annotation(AfterLog)", returning = "returnVal")
+    public void logAfter(JoinPoint joinPoint, Object returnVal) {
+        String methodName = joinPoint.getSignature().getName();
+        Object[] methodArgs = joinPoint.getArgs();
+        logger.info("After Method: " + methodName + " with args: " + Arrays.toString(methodArgs) +
+                " has executed and has returned: " + returnVal);
+    }
+
 }
